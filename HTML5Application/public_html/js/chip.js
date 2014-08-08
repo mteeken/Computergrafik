@@ -7,6 +7,7 @@ function ChipManager()
 {
     var actChip;
     var chips = new Array(7);
+    var chipMoving = false;
 
     for (var i = 0; i < chips.length; i++) {
         chips[i] = new Array(6); 
@@ -55,30 +56,34 @@ function ChipManager()
         //game.children[0].children[0].visible = false;
         world.add(actChip);
 
-        start();
+        game.start();
     }
     
     this.moveLeft = function() {
-        if (actChip.position.x < 2.2)
+        if (chipMoving == false && actChip.position.x < 2.2) {
             actChip.position.x = actChip.position.x + 0.75; 
+        }
     }
     
     this.moveRight = function() {
-        if (actChip.position.x > -2.3)
+        if (chipMoving == false && actChip.position.x > -2.3) {
             actChip.position.x = actChip.position.x - 0.75; 
+        }
     }
     
     this.moveDown = function(index) {
-        for (var i = chips[index].length - 1; i >= 0; i--) {
-            if (chips[index][i] == 0) {
-                var yPosition = getYPostion(i);
-                this.move(yPosition)
+        if (chipMoving == false) {
+            for (var i = chips[index].length - 1; i >= 0; i--) {
+                if (chips[index][i] == 0) {
+                    var yPosition = game.getYPostion(i);
+                    this.move(yPosition)
 
-                if (actChip.name.valueOf() == 'Yellow')
-                    chips[index][i] = 1;
-                else
-                    chips[index][i] = 2;
-                break;
+                    if (actChip.name.valueOf() == 'Yellow')
+                        chips[index][i] = 1;
+                    else
+                        chips[index][i] = 2;
+                    break;
+                }
             }
         }
     }
@@ -86,6 +91,7 @@ function ChipManager()
     this.move = function(yPosition) {
         clearTimeout(timeout);
         if (actChip.position.y < yPosition) {
+            chipMoving = true;
             actChip.position.y = actChip.position.y + 0.05;
             renderer.render(world, camera);
             self = this;
@@ -93,6 +99,7 @@ function ChipManager()
                 self.move(yPosition);
             }, 20);
         } else {
+           chipMoving = false;
            var final = this.checkFinal(); 
            if (final == true) {
                 alert("Gewonnen");

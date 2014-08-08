@@ -9,11 +9,15 @@ var world,
     renderer,
     camera,
     controls;
+    
+var game;    
+    
 
 //first function to be called
 function onLoad() {
     init();
-    loadObjects();
+    game = new Game();
+    game.loadGame();
 }
 
 function init() {    
@@ -58,25 +62,7 @@ function init() {
 */
     //Event listenters
 //    controls.addEventListener('change', draw);
-    document.addEventListener('keydown', onKeyDown, false);
-}
-
-
-function loadObjects() {
-    //Loading of the Game-Board
-    var raster = new THREE.ColladaLoader();
-    raster.options.convertUpAxis = true;
-    raster.load('models/VierGewinnt.dae', gameLoaded);
-}
-
-function gameLoaded(collada) {
-    console.log('gameLoaded');
-    game = collada.scene;
-    game.position.y = game.position.y - 0.01;
-    //Hide Collider-Walls
-    //game.children[0].children[0].visible = false;
-    world.add(game);
-    
-    chipMng = new ChipManager();
-    chipMng.createYellowChip();
+    document.addEventListener('keydown', function(key) {
+        game.onKeyDown(key);
+    }, false);
 }
