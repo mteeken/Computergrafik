@@ -8,16 +8,13 @@ var world,
     canvas, 
     renderer,
     camera,
-    controls;
-    
-var game;    
-    
+    controls,
+    game;    
 
 //first function to be called
 function onLoad() {
     init();
     game = new Game();
-    game.loadGame();
 }
 
 function init() {    

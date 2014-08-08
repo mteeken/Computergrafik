@@ -57,6 +57,17 @@ function ChipManager()
         world.add(actChip);
 
         game.start();
+        
+        if (game.getLevel() == 1)
+            game.setSeconds(60);
+        else if (game.getLevel() == 2)
+            game.setSeconds(30); 
+        else if (game.getLevel() == 3)
+            game.setSeconds(10);
+            
+        game.setCounter(setInterval(function() {
+            game.timer();
+        }, 1000)); 
     }
     
     this.moveLeft = function() {
@@ -72,6 +83,7 @@ function ChipManager()
     }
     
     this.moveDown = function(index) {
+        game.clearCounter();
         if (chipMoving == false) {
             for (var i = chips[index].length - 1; i >= 0; i--) {
                 if (chips[index][i] == 0) {
@@ -114,11 +126,7 @@ function ChipManager()
     }
     
     this.checkFinal = function() {
-        if (actChip.name.valueOf() === "Yellow") {
-            var player = 1;
-        } else {
-            var player = 2;
-        }
+        var player = this.getActivePlayerNumber();
         
         // Horizontal
         for (var i = 0; i < chips.length - 3; i++) {
@@ -190,6 +198,14 @@ function ChipManager()
                     return true;
                 }
             }
+        }
+    }
+    
+    this.getActivePlayerNumber = function() {
+        if (actChip.name.valueOf() === "Yellow") {
+            return 1;
+        } else {
+            return 2;
         }
     }
 }
