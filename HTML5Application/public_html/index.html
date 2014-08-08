@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html lang="DE">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <title>Vier Gewinnt - Hannes Themann und Michael Teeken</title>
+    <script src="js/three.js"></script>
+    <script src="js/ColladaLoader.js"></script>
+    <script src="js/TrackBall.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script type="text/javascript" src="js/loadModels.js"></script>
+    <script type="text/javascript" src="js/timer.js"></script>
+    <script type="text/javascript" src="js/game.js"></script>
+    <script type="text/javascript" src="js/chip.js"></script>
+</head>
+
+<body onload="onLoad()">
+    <div id= "header" >
+       <h1>Vier Gewinnt</h1>
+       <p>Hannes Themann und Michael Teeken</p>
+    </div>
+   
+    <div id="menu">
+        <div id="timetable">
+           Zeit: <span id="h">0</span>:<span id="m">00</span>:<span id="s">00</span>
+        </div>
+        <p id="menuText">
+            <br><br>
+            Splot nach links [Pfeil links]
+            <br><br>
+            Splot nach rechts [Pfeil rechts]
+            <br><br>
+            Klotz loslassen [Pfeil unten]
+        </p>
+    </div>
+    <div id="window"></div>
+</body>
+</html>
