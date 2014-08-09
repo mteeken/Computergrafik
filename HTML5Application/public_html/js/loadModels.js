@@ -43,9 +43,9 @@ function init() {
     camera.position.z = 10.1;
     camera.position.y = 0.1;
     camera.position.x = 0.1;
-
+    
     //Controls
-/*    controls = new THREE.TrackballControls(camera);
+    controls = new THREE.TrackballControls(camera);
     controls.rotateSpeed = 1.0;
     controls.zoomSpeed = 1.2;
     controls.panSpeed = 0.8;
@@ -56,7 +56,7 @@ function init() {
     controls.staticMoving = true;
     controls.dynamicDampingFactor = 0.3;
     controls.keys = [65, 83, 68]; 
-*/
+
     //Event listenters
 //    controls.addEventListener('change', draw);
     document.addEventListener('keydown', function(key) {

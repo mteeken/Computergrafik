@@ -47,7 +47,7 @@ function Game() {
         requestAnimationFrame(function() {
           self.start();
         });
-        //controls.update();
+        controls.update();
         renderer.render(world, camera);
     }
 
