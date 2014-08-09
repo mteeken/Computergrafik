@@ -3,9 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var timer;
-var chipMng;
-var newChip;
+var chipMng = null;
 var timeout;
 
 function Game() {
@@ -36,7 +34,14 @@ function Game() {
         //game.children[0].children[0].visible = false;
         world.add(gameScene);
 
-        chipMng = new ChipManager();
+        document.getElementById("newgame").className= "hide";
+        document.getElementById("game").className= "";
+
+        if (chipMng == undefined) {
+            chipMng = new ChipManager();
+        }
+
+        chipMng.setup();
         chipMng.createYellowChip();
     }
 
@@ -51,20 +56,42 @@ function Game() {
         renderer.render(world, camera);
     }
 
+    this.newGame = function() {
+        var worldObjects = world.children;
+        
+        while (world.children[0]) {
+            world.remove(worldObjects[0]);
+        }
+
+        init();
+        this.clearCounter();
+        document.getElementById("newgame").className= "";
+        document.getElementById("game").className= "hide";
+        document.getElementById("gameEnd").className= "hide";
+    }
+    
     this.timer = function()
     {
         this.seconds = this.seconds - 1;
         if (this.seconds <= 0)
         {
-            document.getElementById("timer").innerHTML= "Noch: " + this.seconds + " secs";
+            document.getElementById("timer").innerHTML= "Du hast noch " + this.seconds + " Sekunden";
             this.clearCounter();
             
-            alert("Spieler " + chipMng.getActivePlayerNumber()  + " hat verloren");
+            document.getElementById("game").className= "hide";
+            document.getElementById("gameEnd").className= "";
+
+            if (chipMng.getActivePlayerNumber() == 1) {
+                document.getElementById("winner").innerHTML= "Spieler 2 hat gewonnen";
+            } else {
+                document.getElementById("winner").innerHTML= "Spieler 1 hat gewonnen";
+            }
+
             return;
         }
 
         //Do code for showing the number of seconds here
-        document.getElementById("timer").innerHTML= "Noch: " + this.seconds + " secs";
+        document.getElementById("timer").innerHTML= "Du hast noch " + this.seconds + " Sekunden";
     }
 
 
@@ -83,6 +110,10 @@ function Game() {
             case 51: // Key 3
                 this.setGameLevel(3);
                 break;
+
+             case 78: // New Game
+                this.newGame();
+                break;
                 
             case 37: // left
                 chipMng.moveLeft();
@@ -92,7 +123,6 @@ function Game() {
                 chipMng.moveRight();
                 break;
 
-
             case 40: // Down
                 var indexPosition = this.getIndexPosition(chipMng.getChipPosition().x);
                 chipMng.moveDown(indexPosition);
@@ -100,7 +130,7 @@ function Game() {
                 break;
         }
     }
-
+    
     this.getIndexPosition = function(xPosition) {
         xPosition = Math.round(xPosition * 100) / 100 ;
 
@@ -175,6 +205,7 @@ function Game() {
     
     this.setSeconds = function(seconds) {
         this.seconds = seconds;
+        document.getElementById("timer").innerHTML= "Du hast noch " + this.seconds + " Sekunden";
     }
     
     this.setCounter = function(counter) {

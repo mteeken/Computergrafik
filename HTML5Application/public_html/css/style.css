@@ -8,3 +8,16 @@ and open the template in the editor.
     Author     : mteeken
 */
 
+#gamelevel { float: left; width:350px; }
+#controlls { float: left; width:250px; }
+.clear { clear:both; }
+
+#newgame {  }
+#newgame.hide { display: none; }
+
+#game {  }
+#game.hide { display: none; }
+
+#gameEnd {  }
+#gameEnd.hide { display: none; }
+#gameEnd h2 { margin:0px;  }

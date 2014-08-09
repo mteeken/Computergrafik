@@ -23,20 +23,44 @@
     </div>
    
     <div id="menu">
-        <div id="timer">
-           Noch: 0 sec
-        </div>
-        <p id="menuText">
-            <b>Schwierigkeit bestimmen: (Taste 1-3)</b><br>
-            1. 60 Sekunden pro Zug<br>
-            2. 30 Sekunden pro Zug<br>
-            3. 10 Sekunden pro Zug<br>
-            <br><br>
+        <div id="controlls">
             <b>Steuerung:</b><br>
             Chip nach links [Pfeil links]<br>
             Chip nach rechts [Pfeil rechts]<br>
             Chip loslassen [Pfeil unten]
-        </p>
+        </div>
+        <br class="clear">
+        <br>
+        <div id="newgame">
+            <b>Neues Spiel:</b><br>
+            <b>Schwierigkeit bestimmen: (Taste 1-3)</b><br>
+                1. 60 Sekunden pro Zug<br>
+                2. 30 Sekunden pro Zug<br>
+                3. 10 Sekunden pro Zug<br>
+            <br />
+        </div>
+        
+        <div id="game" class="hide">
+            <b>Aktuelles Spiel:</b><br>
+            <div id="player">
+               Spieler 1 ist am Zug
+            </div>
+            <div id="timer">
+               Du hast noch 0 Sekunden
+            </div>
+            <br />
+        </div>
+        
+        <div id="gameEnd" class="hide">
+            <h2>GEWONNEN:</h2><br>
+            <div id="winner">
+
+            </div>
+            <div id="timer">
+               Neues Spiel starten [Taste N]
+            </div>
+            <br />
+        </div>
     </div>
     <div id="window"></div>
 </body>

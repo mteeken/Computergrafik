@@ -13,24 +13,30 @@ var world,
 
 //first function to be called
 function onLoad() {
-    init();
     game = new Game();
+    init();
 }
 
 function init() {    
-    timer = new Timer();
 
-    //setup Render
-    container = document.getElementById( 'window' );
-    document.body.appendChild( container );
-    renderer = new THREE.WebGLRenderer({
-        antialias: true
-    });
-    renderer.setSize(800, 600);
-    container.appendChild( renderer.domElement );
+    if (world == null) {
+        //setup Render
+        container = document.getElementById( 'window' );
+        document.body.appendChild( container );
+        renderer = new THREE.WebGLRenderer({
+            antialias: true
+        });
+        renderer.setSize(800, 600);
+        container.appendChild( renderer.domElement );
 
-    //Setup the main scene to be rendered
-    world = new THREE.Scene();
+        //Setup the main scene to be rendered
+        world = new THREE.Scene();
+        
+        document.addEventListener('keydown', function(key) {
+            game.onKeyDown(key);
+        }, false);
+    }
+
     light = new THREE.PointLight(0xff0000, 1, 100);
     light.position.set(30, 30, 30);
     light2 = new THREE.AmbientLight(0xffffff); // soft white light
@@ -56,10 +62,4 @@ function init() {
     controls.staticMoving = true;
     controls.dynamicDampingFactor = 0.3;
     controls.keys = [65, 83, 68]; 
-
-    //Event listenters
-//    controls.addEventListener('change', draw);
-    document.addEventListener('keydown', function(key) {
-        game.onKeyDown(key);
-    }, false);
 }

@@ -9,14 +9,6 @@ function ChipManager()
     var chips = new Array(7);
     var chipMoving = false;
 
-    for (var i = 0; i < chips.length; i++) {
-        chips[i] = new Array(6); 
-
-        for (var j = 0; j < chips[i].length; j++) {
-            chips[i][j] = 0;
-        }
-    }
-    
     this.createNewChip = function()
     {
         if(actChip.name.valueOf() === 'Yellow') {
@@ -50,6 +42,9 @@ function ChipManager()
     this.setNewChipPosition = function(collada, color) {
         actChip = collada.scene;
         actChip.name = color;
+        
+        document.getElementById("player").innerHTML= "Spieler " + this.getActivePlayerNumber() + " ist am Zug";
+        
         actChip.position.x = actChip.position.x + 2.2;
         actChip.position.y = actChip.position.y - 1.55;
         //Hide Collider-Walls
@@ -114,7 +109,9 @@ function ChipManager()
            chipMoving = false;
            var final = this.checkFinal(); 
            if (final == true) {
-                alert("Gewonnen");
+                document.getElementById("game").className= "hide";
+                document.getElementById("gameEnd").className= "";
+                document.getElementById("winner").innerHTML= "Spieler " + chipMng.getActivePlayerNumber() + " hat gewonnen";
            } else {
                 this.createNewChip();
            }
@@ -207,6 +204,18 @@ function ChipManager()
         } else {
             return 2;
         }
+    }
+    
+    this.setup = function() {
+        chipMoving = false;
+        actChip = null;
+        for (var i = 0; i < chips.length; i++) {
+            chips[i] = new Array(6); 
+
+            for(var j = 0; j < chips[i].length; j++) {
+                chips[i][j] = 0;
+            }
+        }  
     }
 }
 
