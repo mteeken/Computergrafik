@@ -21,3 +21,56 @@ and open the template in the editor.
 #gameEnd {  }
 #gameEnd.hide { display: none; }
 #gameEnd h2 { margin:0px;  }
+
+#window{
+    position:absolute;
+    width: 700px;
+    height: 500px;
+    top: 25%;
+    left: 50%;
+    margin-top: -75px;
+    margin-left: -300px;
+    border-width: 2px;
+    border-style: none;
+    border-color: blue;
+}
+
+#header{
+    color:white;
+    position:absolute;
+    text-align: center;
+    left:40%;
+    font-family: Verdana, sans-serif;
+}
+
+#menu{
+    width:300px;
+    height:400px;
+    left:5%;
+    top:25%;
+    border: solid;
+    color:white;
+    position:absolute;
+}
+
+body {
+    background-color: #000000;
+    margin: 0px;
+    font-family: Verdana, sans-serif;
+}
+
+h1{
+    color:white;
+    font-family: Verdana, sans-serif;
+}
+
+p{
+    color:white;
+    font-family: Verdana, sans-serif;
+    margin-left: 10%;
+}
+
+h2{
+    color:white;
+    font-family: Verdana, sans-serif;
+}

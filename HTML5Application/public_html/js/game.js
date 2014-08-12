@@ -86,6 +86,8 @@ function Game() {
             } else {
                 document.getElementById("winner").innerHTML= "Spieler 1 hat gewonnen";
             }
+            
+            new Audio("sounds/applause.mp3").play();
 
             return;
         }
