@@ -109,6 +109,7 @@ function ChipManager()
            chipMoving = false;
            var final = this.checkFinal(); 
            if (final == true) {
+                new Audio("sounds/applause.mp3").play();
                 document.getElementById("game").className= "hide";
                 document.getElementById("gameEnd").className= "";
                 document.getElementById("winner").innerHTML= "Spieler " + chipMng.getActivePlayerNumber() + " hat gewonnen";

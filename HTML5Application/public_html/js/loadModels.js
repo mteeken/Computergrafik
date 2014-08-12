@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 //Global Variables
-var world, 
-    canvas, 
-    renderer,
-    camera,
-    controls,
-    game;    
+var world,
+        canvas,
+        renderer,
+        camera,
+        controls,
+        game;
 
 //first function to be called
 function onLoad() {
@@ -17,39 +17,42 @@ function onLoad() {
     init();
 }
 
-function init() {    
+function init() {
 
     if (world == null) {
         //setup Render
-        container = document.getElementById( 'window' );
-        document.body.appendChild( container );
+        container = document.getElementById('window');
+        document.body.appendChild(container);
         renderer = new THREE.WebGLRenderer({
             antialias: true
         });
         renderer.setSize(800, 600);
-        container.appendChild( renderer.domElement );
+        container.appendChild(renderer.domElement);
 
         //Setup the main scene to be rendered
         world = new THREE.Scene();
-        
+
         document.addEventListener('keydown', function(key) {
             game.onKeyDown(key);
         }, false);
     }
 
-    light = new THREE.PointLight(0xff0000, 1, 100);
-    light.position.set(30, 30, 30);
-    light2 = new THREE.AmbientLight(0xffffff); // soft white light
-    light3 = new THREE.HemisphereLight(0xffffff, 0xffffff, 1);
-    world.add(light3);
-    world.add(camera);
-    
     //Camera
-    camera = new THREE.PerspectiveCamera(300, 700/500, 0.1, 1000);
+    camera = new THREE.PerspectiveCamera(300, 700 / 500, 0.1, 1000);
     camera.position.z = 10.1;
     camera.position.y = 0.1;
     camera.position.x = 0.1;
-    
+
+    //Light
+    light = new THREE.SpotLight(0xffffff, 4, 30);
+    light.position = camera.position;
+    light2 = new THREE.PointLight(0xfff000, 1, 30);
+    light2.position.set(10, 10, 10);
+    world.add(light);
+    world.add(light2);
+
+    world.add(camera);
+
     //Controls
     controls = new THREE.TrackballControls(camera);
     controls.rotateSpeed = 1.0;
@@ -61,5 +64,5 @@ function init() {
 
     controls.staticMoving = true;
     controls.dynamicDampingFactor = 0.3;
-    controls.keys = [65, 83, 68]; 
+    controls.keys = [65, 83, 68];
 }
