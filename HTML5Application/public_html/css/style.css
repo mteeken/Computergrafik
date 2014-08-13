@@ -20,7 +20,7 @@ and open the template in the editor.
 
 #gameEnd {  }
 #gameEnd.hide { display: none; }
-#gameEnd h2 { margin:0px;  }
+#gameEnd h2 { margin:0px; margin-left: 10%;  }
 
 #window{
     position:absolute;
@@ -64,13 +64,21 @@ h1{
     font-family: Verdana, sans-serif;
 }
 
-p{
+p {
     color:white;
     font-family: Verdana, sans-serif;
     margin-left: 10%;
 }
 
+#winner, #player, #timer {
+    color:white;
+    font-family: Verdana, sans-serif;
+    margin-left: 10%;
+}
+
+
 h2{
     color:white;
     font-family: Verdana, sans-serif;
+    margin-left:10%;
 }
