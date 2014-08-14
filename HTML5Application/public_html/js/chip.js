@@ -12,71 +12,70 @@ function ChipManager()
     
     this.createNewChip = function()
     {
-        if(actChip.name.valueOf() === 'Yellow') {
+        if (actChip.name.valueOf() === 'Yellow') {
             this.createRedChip();
-        } else if(actChip.name === 'Red') {
+        } else if (actChip.name === 'Red') {
             this.createYellowChip();
         }
     }
 
     this.createRedChip = function()
     {
-        var yellowChip  = new THREE.ColladaLoader();
+        var yellowChip = new THREE.ColladaLoader();
         yellowChip.options.convertUpAxis = true;
+
         self = this;
         yellowChip.load('models/ChipRed.dae', function (collada) {
-            console.log('RedChipLoaded');
             self.setNewChipPosition(collada, "Red");
         });
     }
-  
+
     this.createYellowChip = function()
     {
-        var yellowChip  = new THREE.ColladaLoader();
+        var yellowChip = new THREE.ColladaLoader();
         yellowChip.options.convertUpAxis = true;
         self = this;
-        yellowChip.load('models/ChipGelb.dae', function (collada) {
-            console.log('YellowChipLoaded');
+        yellowChip.load('models/ChipGelb.dae', function(collada) {
             self.setNewChipPosition(collada, "Yellow");
         });
     }
-    
+
     this.setNewChipPosition = function(collada, color) {
         actChip = collada.scene;
         actChip.name = color;
-        
-        document.getElementById("player").innerHTML= "Spieler " + this.getActivePlayerNumber() + " ist am Zug";
-        
+
+        document.getElementById("player").innerHTML = "Spieler " + this.getActivePlayerNumber() + " ist am Zug";
+
         actChip.position.x = actChip.position.x + 2.2;
         actChip.position.y = actChip.position.y - 1.55;
         world.add(actChip);
 
         game.start();
-        
+
         if (game.getLevel() == 1)
             game.setSeconds(60);
         else if (game.getLevel() == 2)
-            game.setSeconds(30); 
+            game.setSeconds(30);
         else if (game.getLevel() == 3)
             game.setSeconds(10);
-            
+
         game.setCounter(setInterval(function() {
             game.timer();
-        }, 1000)); 
+        }, 1000));
     }
-    
+
     this.moveLeft = function() {
         if (chipMoving == false && actChip.position.x < 2.2) {
-            actChip.position.x = actChip.position.x + 0.75; 
+            actChip.position.x = actChip.position.x + 0.75;
         }
     }
-    
+
     this.moveRight = function() {
         if (chipMoving == false && actChip.position.x > -2.3) {
-            actChip.position.x = actChip.position.x - 0.75; 
+            actChip.position.x = actChip.position.x - 0.75;
         }
     }
-    
+
     this.moveDown = function(index) {
         game.clearCounter();
         if (chipMoving == false) {
@@ -96,7 +95,7 @@ function ChipManager()
             }
         }
     }
-    
+
     this.move = function(yPosition) {
         clearTimeout(timeout);
         if (actChip.position.y < yPosition) {
@@ -108,28 +107,29 @@ function ChipManager()
                 self.move(yPosition);
             }, 20);
         } else {
-           chipMoving = false;
-           var final = this.checkFinal(); 
-           if (final == true) {
+            chipMoving = false;
+            var final = this.checkFinal();
+            if (final == true) {
                 new Audio("sounds/applause.mp3").play();
-                document.getElementById("game").className= "hide";
-                document.getElementById("gameEnd").className= "";
-                document.getElementById("winner").innerHTML= "Spieler " + chipMng.getActivePlayerNumber() + " hat gewonnen";
-           } else {
+                document.getElementById("game").className = "hide";
+                document.getElementById("gameEnd").className = "";
+                document.getElementById("winner").innerHTML = "Spieler " + chipMng.getActivePlayerNumber() + " hat gewonnen";
+            } else {
                 this.createNewChip();
-           }
+            }
         }
     }
-    
+
     this.getChipPosition = function() {
         return actChip.position;
     }
-    
+
     this.checkFinal = function() {
         var player = this.getActivePlayerNumber();
-        
+
+        // Horizontal
         for (var i = 0; i < chips.length - 3; i++) {
-            for (var j = 0; j < chips[i].length ; j++) {
+            for (var j = 0; j < chips[i].length; j++) {
                 if (
                     chips[i][j] != 0
                     &&
@@ -153,7 +153,7 @@ function ChipManager()
                 }
             }
         }
-        
+
         // Vertikal
         for (var i = 0; i < chips.length; i++) {
             for (var j = 0; j < chips[i].length - 3; j++) {
@@ -180,7 +180,7 @@ function ChipManager()
                 }
             }
         }
-        
+
         // Diagonal oben links, unten rechts
         for (var i = 0; i <= chips.length - 4; i++) {
             for (var j = 0; j <= chips[i].length - 4; j++) {
@@ -207,9 +207,9 @@ function ChipManager()
                 }
             }
         }
-        
+
         // Diagonal unten links, oben rechts
-        for (var i = chips.length - 4; i >= 0 ; i--) {
+        for (var i = chips.length - 4; i >= 0; i--) {
             for (var j = 2; j < chips[i].length; j++) {
                 if (
                     chips[i][j] != 0
@@ -271,7 +271,7 @@ function ChipManager()
         }
         this.highlightCounter += 1;    
     }
-    
+
     this.getActivePlayerNumber = function() {
         if (actChip.name.valueOf() === "Yellow") {
             return 1;
@@ -279,18 +279,18 @@ function ChipManager()
             return 2;
         }
     }
-    
+
     this.setup = function() {
         chipMoving = false;
         actChip = null;
         highlightCounter = 0;
         for (var i = 0; i < chips.length; i++) {
-            chips[i] = new Array(6); 
+            chips[i] = new Array(6);
 
-            for(var j = 0; j < chips[i].length; j++) {
+            for (var j = 0; j < chips[i].length; j++) {
                 chips[i][j] = 0;
             }
-        }  
+        }
     }
 }
 
