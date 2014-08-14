@@ -8,7 +8,8 @@ function ChipManager()
     var actChip;
     var chips = new Array(7);
     var chipMoving = false;
-
+    this.highlightCounter = 0;
+    
     this.createNewChip = function()
     {
         if(actChip.name.valueOf() === 'Yellow') {
@@ -22,6 +23,7 @@ function ChipManager()
     {
         var yellowChip  = new THREE.ColladaLoader();
         yellowChip.options.convertUpAxis = true;
+        self = this;
         yellowChip.load('models/ChipRed.dae', function (collada) {
             console.log('RedChipLoaded');
             self.setNewChipPosition(collada, "Red");
@@ -47,8 +49,6 @@ function ChipManager()
         
         actChip.position.x = actChip.position.x + 2.2;
         actChip.position.y = actChip.position.y - 1.55;
-        //Hide Collider-Walls
-        //game.children[0].children[0].visible = false;
         world.add(actChip);
 
         game.start();
@@ -85,10 +85,12 @@ function ChipManager()
                     var yPosition = game.getYPostion(i);
                     this.move(yPosition)
 
-                    if (actChip.name.valueOf() == 'Yellow')
+                   /* if (actChip.name.valueOf() == 'Yellow')
                         chips[index][i] = 1;
                     else
-                        chips[index][i] = 2;
+                        chips[index][i] = 2;*/
+                    
+                    chips[index][i] = actChip;
                     break;
                 }
             }
@@ -126,19 +128,27 @@ function ChipManager()
     this.checkFinal = function() {
         var player = this.getActivePlayerNumber();
         
-        // Horizontal
         for (var i = 0; i < chips.length - 3; i++) {
             for (var j = 0; j < chips[i].length ; j++) {
                 if (
-                    chips[i][j] == player
+                    chips[i][j] != 0
                     &&
-                    chips[i + 1][j] == player
+                    chips[i][j].name.valueOf() == actChip.name.valueOf()
                     &&
-                    chips[i + 2][j] == player
+                    chips[i + 1][j] != 0
                     &&
-                    chips[i + 3][j] == player
+                    chips[i + 1][j].name.valueOf() == actChip.name.valueOf()
+                    &&
+                    chips[i + 2][j] != 0
+                    &&
+                    chips[i + 2][j].name.valueOf() == actChip.name.valueOf()
+                    &&
+                    chips[i + 3][j] != 0
+                    &&
+                    chips[i + 3][j].name.valueOf() == actChip.name.valueOf()
                 )
                 {
+                    this.hightlightChips(chips[i][j], chips[i + 1][j], chips[i + 2][j], chips[i + 3][j]);
                     return true;
                 }
             }
@@ -148,15 +158,24 @@ function ChipManager()
         for (var i = 0; i < chips.length; i++) {
             for (var j = 0; j < chips[i].length - 3; j++) {
                 if (
-                    chips[i][j] == player
+                    chips[i][j] != 0
                     &&
-                    chips[i][j + 1] == player
+                    chips[i][j].name.valueOf() == actChip.name.valueOf()
                     &&
-                    chips[i][j + 2] == player
+                    chips[i][j + 1] != 0
                     &&
-                    chips[i][j + 3] == player
+                    chips[i][j + 1].name.valueOf() == actChip.name.valueOf()
+                    &&
+                    chips[i][j + 2] != 0
+                    &&
+                    chips[i][j + 2].name.valueOf() == actChip.name.valueOf()
+                    &&
+                    chips[i][j + 3] != 0
+                    &&
+                    chips[i][j + 3].name.valueOf() == actChip.name.valueOf()
                 )
                 {
+                    this.hightlightChips(chips[i][j], chips[i][j + 1], chips[i][j + 2], chips[i][j + 3]);
                     return true;
                 }
             }
@@ -166,15 +185,24 @@ function ChipManager()
         for (var i = 0; i <= chips.length - 4; i++) {
             for (var j = 0; j <= chips[i].length - 4; j++) {
                 if (
-                    chips[i][j] == player
+                    chips[i][j] != 0
                     &&
-                    chips[i + 1][j + 1] == player
+                    chips[i][j].name.valueOf() == actChip.name.valueOf()
                     &&
-                    chips[i + 2][j + 2] == player
+                    chips[i + 1][j + 1] != 0
                     &&
-                    chips[i + 3][j + 3] == player
+                    chips[i + 1][j + 1].name.valueOf() == actChip.name.valueOf()
+                    &&
+                    chips[i + 2][j + 2] != 0
+                    &&
+                    chips[i + 2][j + 2].name.valueOf() == actChip.name.valueOf()
+                    &&
+                    chips[i + 3][j + 3] != 0
+                    &&
+                    chips[i + 3][j + 3].name.valueOf() == actChip.name.valueOf()
                 )
                 {
+                    this.hightlightChips(chips[i][j], chips[i + 1][j + 1], chips[i + 2][j + 2], chips[i + 3][j + 3]);
                     return true;
                 }
             }
@@ -184,19 +212,64 @@ function ChipManager()
         for (var i = chips.length - 4; i >= 0 ; i--) {
             for (var j = 2; j < chips[i].length; j++) {
                 if (
-                    chips[i][j] == player
+                    chips[i][j] != 0
                     &&
-                    chips[i + 1][j - 1] == player
+                    chips[i][j].name.valueOf() == actChip.name.valueOf()
                     &&
-                    chips[i + 2][j - 2] == player
+                    chips[i + 1][j - 1] != 0
                     &&
-                    chips[i + 3][j - 3] == player
+                    chips[i + 1][j - 1].name.valueOf() == actChip.name.valueOf()
+                    &&
+                    chips[i + 2][j - 2] != 0
+                    &&
+                    chips[i + 2][j - 2].name.valueOf() == actChip.name.valueOf()
+                    &&
+                    chips[i + 3][j - 3] != 0
+                    &&
+                    chips[i + 3][j - 3].name.valueOf() == actChip.name.valueOf()
                 )
                 {
+                    this.hightlightChips(chips[i][j], chips[i + 1][j - 1], chips[i + 2][j - 2], chips[i + 3][j - 3]);
                     return true;
                 }
             }
         }
+    }
+    
+    this.hightlightChips = function(chip1, chip2, chip3, chip4) {
+        var timeoutHightlight = clearTimeout();
+        var self = this;
+        
+        if (chip1.position.y != 100) {
+            chip1.position.y_old = chip1.position.y;
+            chip1.position.y = 100;
+            chip2.position.y_old = chip2.position.y;
+            chip2.position.y = 100;
+            chip3.position.y_old = chip3.position.y;
+            chip3.position.y = 100;
+            chip4.position.y_old = chip4.position.y;
+            chip4.position.y = 100;
+            renderer.render(world, camera);
+            console.log("Aus:" + this.highlightCounter);
+            if (this.highlightCounter <= 2) {
+                timeoutHightlight = window.setTimeout(function() {
+                    self.hightlightChips(chip1, chip2, chip3, chip4);
+                }, 1000);
+            }
+        } else {
+            chip1.position.y = chip1.position.y_old;
+            chip2.position.y = chip2.position.y_old;
+            chip3.position.y = chip3.position.y_old;
+            chip4.position.y = chip4.position.y_old;
+            renderer.render(world, camera);
+            console.log("An:" + this.highlightCounter);
+            if (this.highlightCounter < 3) {
+                timeoutHightlight = window.setTimeout(function() {
+                    self.hightlightChips(chip1, chip2, chip3, chip4);
+                }, 1000);
+            }
+        }
+        this.highlightCounter += 1;    
     }
     
     this.getActivePlayerNumber = function() {
@@ -210,6 +283,7 @@ function ChipManager()
     this.setup = function() {
         chipMoving = false;
         actChip = null;
+        highlightCounter = 0;
         for (var i = 0; i < chips.length; i++) {
             chips[i] = new Array(6); 
 
