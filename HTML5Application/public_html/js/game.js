@@ -22,7 +22,7 @@ function Game() {
         var raster = new THREE.ColladaLoader();
         raster.options.convertUpAxis = true;
         self = this;
-        raster.load('models/VierGewinnt.dae', function(collada) {
+        raster.load('models/VierGewinnt1.dae', function(collada) {
             self.gameLoaded(collada);
         });
     }
@@ -102,14 +102,17 @@ function Game() {
         switch (key.keyCode) {
 
             case 49: // Key 1
+                this.newGame();
                 this.setGameLevel(1);
                 break;
     
             case 50: // Key 2
+                this.newGame();
                 this.setGameLevel(2);
                 break;
                 
             case 51: // Key 3
+                this.newGame();
                 this.setGameLevel(3);
                 break;
 

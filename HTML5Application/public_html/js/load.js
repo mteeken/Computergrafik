@@ -46,10 +46,11 @@ function init() {
     //Light
     light = new THREE.SpotLight(0xffffff, 4, 30);
     light.position = camera.position;
-    light2 = new THREE.PointLight(0xfff000, 1, 30);
+    light2 = new THREE.PointLight(0xfff000, 1.5, 30);
     light2.position.set(10, 10, 10);
     world.add(light);
     world.add(light2);
+    
 
     world.add(camera);
 
