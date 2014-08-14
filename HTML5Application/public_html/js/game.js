@@ -21,9 +21,9 @@ function Game() {
         //Loading of the Game-Board
         var raster = new THREE.ColladaLoader();
         raster.options.convertUpAxis = true;
-        self = this;
+        var selfStart = this;
         raster.load('models/VierGewinnt1.dae', function(collada) {
-            self.gameLoaded(collada);
+            selfStart.gameLoaded(collada);
         });
     }
 
@@ -86,7 +86,7 @@ function Game() {
             } else {
                 document.getElementById("winner").innerHTML= "Spieler 1 hat gewonnen";
             }
-            
+            chipMng.setActChip(null);
             new Audio("sounds/applause.mp3").play();
 
             return;

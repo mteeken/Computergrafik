@@ -65,13 +65,13 @@ function ChipManager()
     }
 
     this.moveLeft = function() {
-        if (chipMoving == false && actChip.position.x < 2.2) {
+        if (chipMoving == false && actChip != null && actChip.position.x < 2.2) {
             actChip.position.x = actChip.position.x + 0.75;
         }
     }
 
     this.moveRight = function() {
-        if (chipMoving == false && actChip.position.x > -2.3) {
+        if (chipMoving == false && actChip != null && actChip.position.x > -2.3) {
             actChip.position.x = actChip.position.x - 0.75;
         }
     }
@@ -84,11 +84,6 @@ function ChipManager()
                     var yPosition = game.getYPostion(i);
                     this.move(yPosition)
 
-                   /* if (actChip.name.valueOf() == 'Yellow')
-                        chips[index][i] = 1;
-                    else
-                        chips[index][i] = 2;*/
-                    
                     chips[index][i] = actChip;
                     break;
                 }
@@ -110,6 +105,7 @@ function ChipManager()
             chipMoving = false;
             var final = this.checkFinal();
             if (final == true) {
+                actChip = null;
                 new Audio("sounds/applause.mp3").play();
                 document.getElementById("game").className = "hide";
                 document.getElementById("gameEnd").className = "";
@@ -291,6 +287,10 @@ function ChipManager()
                 chips[i][j] = 0;
             }
         }
+    }
+    
+    this.setActChip = function(value) {
+        actChip = value;
     }
 }
 
